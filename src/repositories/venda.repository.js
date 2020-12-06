@@ -1,7 +1,7 @@
 const databaseService = require("../services/database.service");
 const findAll = () => {
   return new Promise((resolve, reject) => {
-    databaseService.query("SELECT * FROM produto", (err, results) => {
+    databaseService.query("SELECT * FROM venda", (err, results) => {
       if (err) {
         return reject(err);
       }
@@ -12,7 +12,7 @@ const findAll = () => {
 const findById = (id) => {
   return new Promise((resolve, reject) => {
     databaseService.query(
-      "SELECT * FROM produto where idproduto = ?",
+      "SELECT * FROM venda where idvenda = ?",
       [id],
       (err, results) => {
         if (err) {
@@ -23,27 +23,37 @@ const findById = (id) => {
     );
   });
 };
-
-const create = (produto) => {
-  const prod = [
-    (idProduto = produto.idproduto),
-    (nome = produto.nome),
-    (desc = produto.descricao),
-    (valor = produto.valor),
-    (tamanho = produto.tamanho),
-    (peso = produto.peso),
-    (digital = produto.digital),
-    (tipo = produto.tipo),
-  ];
+const findByCliente = (id) => {
   return new Promise((resolve, reject) => {
     databaseService.query(
-      "insert into produto (idproduto, nome, descricao, valor, tamanho, peso, digital, tipo)  VALUES (?)",
-      [prod],
+      "SELECT * FROM venda where cliente = ?",
+      [id],
       (err, results) => {
         if (err) {
           return reject(err);
         }
-        return resolve(prod);
+        return resolve(results);
+      }
+    );
+  });
+};
+const create = (venda) => {
+  const vend = [
+    (idvenda = venda.idvenda),
+    (forma_pagamento = venda.forma_pagamento),
+    (cliente = venda.cliente),
+    (data_venda = venda.valor),
+    (valor_total = venda.valorTotal),
+  ];
+  return new Promise((resolve, reject) => {
+    databaseService.query(
+      "insert into venda (idVenda, forma_pagamento, cliente, data_venda, valor_total)  VALUES (?)",
+      [vend],
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(alo);
       }
     );
   });
@@ -52,7 +62,7 @@ const updateOne = (id, dataToUpdate) => {
   const keys = Object.keys(dataToUpdate);
   const values = Object.values(dataToUpdate);
 
-  const UPDATE = `UPDATE produto SET `;
+  const UPDATE = `UPDATE venda SET `;
 
   let SET = "";
   keys.forEach((r, index) => {
@@ -61,7 +71,7 @@ const updateOne = (id, dataToUpdate) => {
 
   SET = SET.replace(/, $/, " ");
 
-  const WHERE = `WHERE idproduto = ${id}`;
+  const WHERE = `WHERE idvenda = ${id}`;
 
   const sqlQuery = UPDATE + SET + WHERE;
 
@@ -77,7 +87,7 @@ const updateOne = (id, dataToUpdate) => {
 const deleteOne = async (id) => {
   return new Promise((resolve, reject) => {
     databaseService.query(
-      `DELETE FROM produto WHERE idproduto = ${id}`,
+      `DELETE FROM venda WHERE idvenda = ${id}`,
       (err, results) => {
         if (err) {
           return reject(err);
@@ -93,4 +103,5 @@ module.exports = {
   create,
   updateOne,
   deleteOne,
+  findByCliente,
 };
