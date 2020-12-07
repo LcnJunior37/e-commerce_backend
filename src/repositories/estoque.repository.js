@@ -36,7 +36,7 @@ const create = (estoque) => {
         if (err) {
           return reject(err);
         }
-        return resolve(end);
+        return resolve(est);
       }
     );
   });

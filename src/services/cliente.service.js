@@ -23,16 +23,18 @@ const findClienteById = async (req, res) => {
 
 const createCliente = async (req, res) => {
   const requestBody = req.body;
+  console.log(requestBody);
+
   if (
-    requestBody.idCliente &&
-    requestBody.nome &&
-    requestBody.email &&
-    requestBody.rua &&
-    requestBody.bairro &&
-    requestBody.cidade &&
-    requestBody.estado &&
-    requestBody.numerCasa &&
-    requestBody.clienteRepository
+    requestBody.idCliente
+    // requestBody.nome &&
+    // requestBody.email &&
+    // requestBody.rua &&
+    // requestBody.bairro &&
+    // requestBody.cidade &&
+    // requestBody.estado &&
+    // requestBody.numerCasa &&
+    // requestBody.cep
   ) {
     //idCliente, nome, email, rua, bairro,cidade, estado, numeroCasa, cep
     try {
@@ -45,7 +47,8 @@ const createCliente = async (req, res) => {
         rua: req.body.rua,
         bairro: req.body.bairro,
         cidade: req.body.cidade,
-        estado: req.body.numeroCasa,
+        estado: req.body.estado,
+        numeroCasa: req.body.numeroCasa,
         cep: req.body.cep,
       };
 

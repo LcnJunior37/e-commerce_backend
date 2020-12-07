@@ -6,7 +6,10 @@ const findAllproduto = async (req, res) => {
     let i = 0;
     for (i = 0; i < result.length; i++) {
       let est = await estoqueRepository.findById(result[i].idproduto);
-      result[i].qtd = est.qtd;
+      console.log(est);
+      if (est) {
+        result[i].qtd = est.qtd;
+      }
     }
     res.send(result);
   } catch (err) {
@@ -19,8 +22,9 @@ const findprodutoById = async (req, res) => {
     const id = req.params.id;
     let result = await produtoRepository.findById(id);
     let est = await estoqueRepository.findById(id);
-    result.qtd = est;
     console.log(est);
+    result.qtd = est;
+
     console.log(result);
     res.send(result);
   } catch (err) {
