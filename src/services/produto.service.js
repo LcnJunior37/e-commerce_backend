@@ -69,9 +69,10 @@ const createproduto = async (req, res) => {
       };
       const result = await produtoRepository.create(prod);
       const est = {
-        idproduto: req.body.idproduto,
-        qtd: req.body.qtd,
+        idProduto: req.body.idproduto,
+        qtd: requestBody.qtd,
       };
+      console.log(est);
       const resultEst = await estoqueRepository.create(est);
       result.qtd = est.qtd;
       res.send(result);

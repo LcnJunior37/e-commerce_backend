@@ -42,18 +42,18 @@ const create = (itemVenda) => {
   const iVend = [
     (iditem_venda = itemVenda.iditem_venda),
     (item_produto = itemVenda.item_produto),
-    (qtd_item = itemVenda.idvenda),
-    (idVenda = itemVenda.data),
+    (qtd_item = itemVenda.qtd_item),
+    (idVenda = itemVenda.idvenda),
   ];
   return new Promise((resolve, reject) => {
     databaseService.query(
       "insert into item_venda (iditem_venda,item_produto,qtd_item,idvenda)  VALUES (?)",
-      [dir],
+      [iVend],
       (err, results) => {
         if (err) {
           return reject(err);
         }
-        return resolve(dir);
+        return resolve(iVend);
       }
     );
   });

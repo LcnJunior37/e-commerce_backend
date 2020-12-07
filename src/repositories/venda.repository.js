@@ -42,8 +42,8 @@ const create = (venda) => {
     (idvenda = venda.idvenda),
     (forma_pagamento = venda.forma_pagamento),
     (cliente = venda.cliente),
-    (data_venda = venda.valor),
-    (valor_total = venda.valorTotal),
+    (data_venda = venda.data_venda),
+    (valor_total = venda.valor_total),
   ];
   return new Promise((resolve, reject) => {
     databaseService.query(
@@ -53,7 +53,7 @@ const create = (venda) => {
         if (err) {
           return reject(err);
         }
-        return resolve(alo);
+        return resolve(vend);
       }
     );
   });

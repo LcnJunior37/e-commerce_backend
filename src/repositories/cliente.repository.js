@@ -33,19 +33,21 @@ const create = (cliente) => {
     (email = cliente.email),
     (rua = cliente.rua),
     (bairro = cliente.bairro),
+    (cidade = cliente.cidade),
     (estado = cliente.estado),
     (numeroCasa = cliente.numeroCasa),
     (cep = cliente.cep),
   ];
   return new Promise((resolve, reject) => {
+    //insert into cliente (idCliente, nome, email, rua, bairro,cidade, estado, numeroCasa, cep)
     databaseService.query(
-      "INSERT INTO cliente (idCliente, nome, email, rua, bairro,cidade, estado, numeroCasa, cep) VALUES (?)",
+      "INSERT INTO cliente (idCliente, nome, email, rua, bairro, cidade, estado, numeroCasa, cep) VALUES (?)",
       [cli],
       (err, results) => {
         if (err) {
           return reject(err);
         }
-        return resolve(cliente);
+        return resolve(cli);
       }
     );
   });

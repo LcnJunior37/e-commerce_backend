@@ -28,6 +28,7 @@ const findById = (id) => {
 
 const create = (estoque) => {
   const est = [(idProduto = estoque.idProduto), (qtd = estoque.qtd)];
+  console.log(est);
   return new Promise((resolve, reject) => {
     databaseService.query(
       "INSERT INTO estoque (idProduto, qtd) VALUES (?)",

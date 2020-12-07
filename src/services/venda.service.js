@@ -11,11 +11,11 @@ const findAllVenda = async (req, res) => {
     for (i = 0; i < result.length; i++) {
       let cli = await clienteRepository.findById(result[i].cliente);
       let itens = await item_vendaRepository.findByVenda(result[i].idvenda);
-      let j;
-      for (j = 0; i < itens.length; j++) {
-        let prod = await produtoRepository.findById(itens[i].item_produto);
-        itens[j].item_produto = prod;
-      }
+      // let j;
+      // for (j = 0; i < itens.length; j++) {
+      //   let prod = await produtoRepository.findById(itens[i].item_produto);
+      //   itens[j].item_produto = prod;
+      // }
       result[i].cliente = cli;
       result[i].itens = itens;
     }
@@ -35,10 +35,10 @@ const findAllVendaByCliente = async (req, res) => {
       let cli = await clienteRepository.findById(result[i].cliente);
       let itens = await item_vendaRepository.findByVenda(result[i].idvenda);
       let j;
-      for (j = 0; i < itens.length; j++) {
-        let prod = await produtoRepository.findById(itens[i].item_produto);
-        itens[j].item_produto = prod;
-      }
+      // for (j = 0; i < itens.length; j++) {
+      //   let prod = await produtoRepository.findById(itens[i].item_produto);
+      //   itens[j].item_produto = prod;
+      // }
       result[i].cliente = cli;
       result[i].itens = itens;
     }
@@ -57,6 +57,7 @@ const findVendaById = async (req, res) => {
       let itens = await item_vendaRepository.findByVenda(result[i].idvenda);
       let j;
       for (j = 0; i < itens.length; j++) {
+        console.log(itens[i].item_produto);
         let prod = await produtoRepository.findById(itens[i].item_produto);
         itens[j].item_produto = prod;
       }
@@ -76,11 +77,11 @@ const createVenda = async (req, res) => {
     venda.idvenda &&
     venda.cliente &&
     venda.forma_pagamento &&
-    venda.data_venda &&
+    //venda.data_venda &&
     venda.valor_total
   ) {
     try {
-      const venda = {
+      const vend = {
         idvenda: venda.idvenda,
         cliente: venda.cliente,
         forma_pagamento: venda.forma_pagamento,
@@ -88,17 +89,17 @@ const createVenda = async (req, res) => {
         valor_total: venda.valor_total,
       };
 
-      const result = await vendaRepository.create(venda);
+      const result = await vendaRepository.create(vend);
       let arrayitens = new Array();
       let i;
-      for (i = 0; i < itens.length; i++) {
+      for (i = 0; i < venda.itens.length; i++) {
         let item = {
-          iditem_venda: venda.item[i].iditem_venda,
-          item_produto: venda.item[i].item_produto,
-          qtd_item: venda.item[i].qtd_item,
+          iditem_venda: venda.itens[i].iditem_venda,
+          item_produto: venda.itens[i].item_produto,
+          qtd_item: venda.itens[i].qtd_item,
           idvenda: venda.idvenda,
         };
-
+        console.log(item);
         let it = await item_vendaRepository.create(item);
         arrayitens.push(item);
       }
